@@ -17,67 +17,9 @@ keep_md: yes
 
 ```r
 library(lubridate)
-```
-
-```
-## 
-## Attaching package: 'lubridate'
-```
-
-```
-## The following object is masked from 'package:base':
-## 
-##     date
-```
-
-```r
 library(ggplot2)
 library(plyr);
-```
-
-```
-## 
-## Attaching package: 'plyr'
-```
-
-```
-## The following object is masked from 'package:lubridate':
-## 
-##     here
-```
-
-```r
 library(dplyr)
-```
-
-```
-## 
-## Attaching package: 'dplyr'
-```
-
-```
-## The following objects are masked from 'package:plyr':
-## 
-##     arrange, count, desc, failwith, id, mutate, rename, summarise,
-##     summarize
-```
-
-```
-## The following objects are masked from 'package:lubridate':
-## 
-##     intersect, setdiff, union
-```
-
-```
-## The following objects are masked from 'package:stats':
-## 
-##     filter, lag
-```
-
-```
-## The following objects are masked from 'package:base':
-## 
-##     intersect, setdiff, setequal, union
 ```
 
 
@@ -406,6 +348,15 @@ The number of steps taken per 5-minute shows that on average, there is more acti
 
 Activity during weekdays starts much earlier than on weekends. On weekdays the activity take place between 8:30 and 9:30 in the morning surpassing its own average during this period and although during the weekends begins activity around 8.30 only it is observed that it surpasses its own average around the 09:30
 
+
+
+```r
+# Generates plot comapring Wdays and Wends
+g <- ggplot(activity_day_type, aes(interval, avg_steps, fill = day_type)) + facet_grid(day_type ~ .)
+g + geom_line() + ggtitle("Figure 5: Average number of steps taken per 5-minute \n interval across weekdays and weekends") + ylab("Average Steps Taken [Steps]")  + xlab("5-minute Time Interval [Minutes]") + 
+    geom_hline(data=summary_mean, aes(yintercept=activity_mean),
+               linetype="dashed", size=1/3, colour="red") + theme_classic()
+```
 
 ![plot of chunk unnamed-chunk-17](figure/unnamed-chunk-17-1.png)
 

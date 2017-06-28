@@ -168,56 +168,9 @@ hr {
 <h3>Library dependencies</h3>
 
 <pre><code class="r">library(lubridate)
-</code></pre>
-
-<pre><code>## 
-## Attaching package: &#39;lubridate&#39;
-</code></pre>
-
-<pre><code>## The following object is masked from &#39;package:base&#39;:
-## 
-##     date
-</code></pre>
-
-<pre><code class="r">library(ggplot2)
+library(ggplot2)
 library(plyr);
-</code></pre>
-
-<pre><code>## 
-## Attaching package: &#39;plyr&#39;
-</code></pre>
-
-<pre><code>## The following object is masked from &#39;package:lubridate&#39;:
-## 
-##     here
-</code></pre>
-
-<pre><code class="r">library(dplyr)
-</code></pre>
-
-<pre><code>## 
-## Attaching package: &#39;dplyr&#39;
-</code></pre>
-
-<pre><code>## The following objects are masked from &#39;package:plyr&#39;:
-## 
-##     arrange, count, desc, failwith, id, mutate, rename, summarise,
-##     summarize
-</code></pre>
-
-<pre><code>## The following objects are masked from &#39;package:lubridate&#39;:
-## 
-##     intersect, setdiff, union
-</code></pre>
-
-<pre><code>## The following objects are masked from &#39;package:stats&#39;:
-## 
-##     filter, lag
-</code></pre>
-
-<pre><code>## The following objects are masked from &#39;package:base&#39;:
-## 
-##     intersect, setdiff, setequal, union
+library(dplyr)
 </code></pre>
 
 <h3>Load raw data</h3>
@@ -490,6 +443,13 @@ title(&quot;Figure 4: Histogram of Total Number of Steps in each Day &quot;, out
 <p>The number of steps taken per 5-minute shows that on average, there is more activity on weekends (<strong>42.37 Steps</strong>)  than weekdays (<strong>35.61 Steps</strong>). </p>
 
 <p>Activity during weekdays starts much earlier than on weekends. On weekdays the activity take place between 8:30 and 9:30 in the morning surpassing its own average during this period and although during the weekends begins activity around 8.30 only it is observed that it surpasses its own average around the 09:30</p>
+
+<pre><code class="r"># Generates plot comapring Wdays and Wends
+g &lt;- ggplot(activity_day_type, aes(interval, avg_steps, fill = day_type)) + facet_grid(day_type ~ .)
+g + geom_line() + ggtitle(&quot;Figure 5: Average number of steps taken per 5-minute \n interval across weekdays and weekends&quot;) + ylab(&quot;Average Steps Taken [Steps]&quot;)  + xlab(&quot;5-minute Time Interval [Minutes]&quot;) + 
+    geom_hline(data=summary_mean, aes(yintercept=activity_mean),
+               linetype=&quot;dashed&quot;, size=1/3, colour=&quot;red&quot;) + theme_classic()
+</code></pre>
 
 <p><img src="figure/unnamed-chunk-17-1.png" alt="plot of chunk unnamed-chunk-17"></p>
 

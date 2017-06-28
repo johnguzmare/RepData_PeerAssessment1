@@ -319,7 +319,7 @@ The number of steps taken per 5-minute shows that on average, there is more acti
 Activity during weekdays starts much earlier than on weekends. On weekdays the activity take place between 8:30 and 9:30 in the morning surpassing its own average during this period and although during the weekends begins activity around 8.30 only it is observed that it surpasses its own average around the 09:30
 
 
-```{r , include=TRUE, echo=FALSE}
+```{r , include=TRUE, echo=TRUE}
 
 
 # Generates plot comapring Wdays and Wends
