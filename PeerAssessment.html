@@ -323,9 +323,9 @@ max_interval
     geom_hline(aes(yintercept=max_interval$avg_steps), color=&quot;red&quot;, linetype=&quot;dashed&quot;, size=1/3) + 
 
     # Add label to doted lines
-    geom_text(aes(x=550, label=paste(&quot; Max. Steps =&quot;, round(max_interval$avg_steps, digits=2),  sep=&quot; &quot;), y=max_interval$avg_steps-0.1e2), colour=&quot;red&quot;, size=3) + 
+    geom_text(aes(x=550, label=paste(&quot; Max. Steps =&quot;, round(max_interval$avg_steps, digits=2),  sep=&quot; &quot;), y=max_interval$avg_steps-0.1e2), colour=&quot;red&quot;, size=4) + 
 
-    geom_text(aes(x=max_interval$interval+0.3e2, label=paste(&quot; 5 min Interval =&quot;, round(max_interval$interval, digits=2),  sep=&quot; &quot;), y=100), colour=&quot;red&quot;, angle=90, size=3.5) + theme_classic()
+    geom_text(aes(x=max_interval$interval+0.3e2, label=paste(&quot; 5 min Interval =&quot;, round(max_interval$interval, digits=2),  sep=&quot; &quot;), y=100), colour=&quot;red&quot;, angle=90, size=4) + theme_classic()
 </code></pre>
 
 <p><img src="figure/g2-1.png" alt="plot of chunk g2"></p>
