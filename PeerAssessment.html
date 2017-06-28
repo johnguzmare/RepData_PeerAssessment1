@@ -165,7 +165,7 @@ hr {
 <body>
 <h2>Loading and preprocessing the data</h2>
 
-<h3>Library dependencies</h3>
+<h4>Library dependencies</h4>
 
 <pre><code class="r">library(lubridate)
 library(ggplot2)
@@ -173,7 +173,7 @@ library(plyr);
 library(dplyr)
 </code></pre>
 
-<h3>Load raw data</h3>
+<h4>Load raw data</h4>
 
 <p>Load raw data from <code>activity.csv</code></p>
 
@@ -191,7 +191,7 @@ head(activityRawSet)
 ## 6    NA 2012-10-01       25
 </code></pre>
 
-<h3>Prepare data</h3>
+<h4>Prepare data</h4>
 
 <p>Create a data frame from <code>activityRawSet</code> and mutate date column as date object</p>
 
@@ -235,11 +235,15 @@ activity_steps_taken
 
 <p>The mean and median of total steps taken per day were calculated, using <code>mean()</code> and <code>median()</code> functions with <code>activity_steps_taken$count_steps</code> as parameter including observations with <code>NA</code> values.</p>
 
+<h4>Calculate and report the mean and median total number of steps taken per day</h4>
+
 <pre><code class="r">activity_mean &lt;- mean(activity_steps_taken$count_steps)
 activity_median &lt;- median(activity_steps_taken$count_steps)
 </code></pre>
 
 <p>The mean total number of steps taken per day is:  <strong><code>9354.23</code>** and the median total number of steps taken per day is: **<code>10395</code></strong>.</p>
+
+<h4>Make a histogram of the total number of steps taken each day</h4>
 
 <p><em>Figure 1</em>, shows the histogram of the total number of steps taken each day including its total mean and median values represented by red and blue doted lines respectively.</p>
 
@@ -286,6 +290,8 @@ activity_time &lt;- activitySet_df %&gt;%
 ## # ... with 278 more rows
 </code></pre>
 
+<h4>Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?</h4>
+
 <p>The summary of <code>activity_time$avg_steps</code> shows on average the maximum number of steps in the column (<code>Max.</code>) </p>
 
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
@@ -307,6 +313,8 @@ max_interval
 </code></pre>
 
 <p>Across all the days in the dataset, the 5-minute interval of <strong><code>835</code>** minutes , with a total of **<code>10927</code>** steps, on average contains a maximum of **<code>206.17</code></strong> steps.</p>
+
+<h4>Make a time series plot of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)</h4>
 
 <p><em>Figure 2</em>, shows the time series plot of the average number of steps taken, including the 5-minute interval that on average, contains the maximum number of steps (Doted red vertical line).</p>
 
@@ -332,14 +340,22 @@ max_interval
 
 <h2>Imputing missing values</h2>
 
-<p>Note that there are a number of days/intervals where there are missing values (coded as 𝙽𝙰). The presence of missing days may introduce bias into some calculations or summaries of the data. The total number of observations containing missing values are calculated as follow.</p>
+<p>Note that there are a number of days/intervals where there are missing values (coded as 𝙽𝙰). The presence of missing days may introduce bias into some calculations or summaries of the data. </p>
+
+<h4>Calculate and report the total number of missing values in the dataset</h4>
+
+<p>The total number of observations containing missing values are calculated as follow.</p>
 
 <pre><code class="r">activity_count_na_values &lt;- sum(is.na(activityRawSet$steps))
 </code></pre>
 
 <p>The total number of observations containing missing values in steps variable is <strong><code>2304</code></strong> </p>
 
+<h4>Devise a strategy for filling in all of the missing values in the dataset.</h4>
+
 <p>The strategy for filling in all of the missing values in the dataset is replacing NA values with the mean of 5-minute time interval and create a new dataset <code>activity_fill_na</code> that is equal to the original dataset <code>activitySet_df</code> but with the missing data filled in.</p>
+
+<h4>Create a new dataset that is equal to the original dataset but with the missing data filled in</h4>
 
 <pre><code class="r"># Group activitySet_df by interval
 # Replace NA values in steps variable with the mean() by interval
@@ -375,6 +391,8 @@ activity_fill_na &lt;- activitySet_df %&gt;%
 ## # ... with 17,558 more rows
 </code></pre>
 
+<h4>Make a histogram of the total number of steps taken each day and Calculate and report the mean and median total number of steps taken per day.</h4>
+
 <p>Summary to compare <code>activity_steps_taken_im</code> dataset with imputed missing values and the original dataset <code>activity_steps_taken</code> </p>
 
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
@@ -385,7 +403,14 @@ activity_fill_na &lt;- activitySet_df %&gt;%
 ##      41    9819   10770   10770   12810   21190
 </code></pre>
 
-<p><em>Figure 3</em>, Shows Histogram of the total number of steps taken each day after missing values are imputed including its total mean and median values represented by red and blue doted lines respectively. In this case after imputed <strong><code>2304</code>** missing values generates a slight increase in the values of the average and the median (compares original dataset with NA values) which causes both values, the mean and the median to be equals **<code>10776.19</code></strong>.</p>
+<p>Calculate mean and median for imputing dataset</p>
+
+<pre><code class="r"># Calcualte mean and median for imputing dataset
+activity_mean_imp &lt;- mean(activity_steps_taken_im$count_steps)
+activity_median_imp &lt;- median(activity_steps_taken_im$count_steps)
+</code></pre>
+
+<p><em>Figure 3</em>, Shows Histogram of the total number of steps taken each day after missing values are imputed including its total mean and median values represented by red and blue doted lines respectively. In this case after imputed <strong><code>2304</code>** missing values generates a slight increase in the values of the average and the median (compares original dataset with NA values) which causes both values, the <strong>mean</strong> and <strong>median</strong> to be equals to **<code>10776.19</code></strong>.</p>
 
 <pre><code class="r"># Generate histogram
 hist(activity_steps_taken_im$count_steps, breaks=25, main=&quot;Figure 3: Histogram of Total Number of Steps in each Day \n With Imputing Missing Values&quot;, xlab=&quot;Total Steps [count_steps]&quot;)
@@ -396,7 +421,7 @@ text(activity_mean_imp-0.3e3, 8, bquote(bar(x) == .(activity_mean_imp)), col = &
 text(activity_median_imp+0.5e3, 8,  bquote(mu == .(activity_median_imp)), col = &quot;blue&quot;, srt = 90,cex=0.6)
 </code></pre>
 
-<p><img src="figure/unnamed-chunk-13-1.png" alt="plot of chunk unnamed-chunk-13"></p>
+<p><img src="figure/unnamed-chunk-14-1.png" alt="plot of chunk unnamed-chunk-14"></p>
 
 <p><em>Figure 4</em>, Shows two histograms to compare the total number of steps taken each day, the first one shows the distribution before imputing and the second one shows the distribution after imputing missing values.</p>
 
@@ -422,9 +447,34 @@ text(activity_median_imp+0.4e3, 8,  bquote(mu == .(activity_median_imp)), col = 
 title(&quot;Figure 4: Histograms of Total Number of Steps in each Day &quot;, outer=TRUE)
 </code></pre>
 
-<p><img src="figure/unnamed-chunk-14-1.png" alt="plot of chunk unnamed-chunk-14"></p>
+<p><img src="figure/unnamed-chunk-15-1.png" alt="plot of chunk unnamed-chunk-15"></p>
 
 <h2>Are there differences in activity patterns between weekdays and weekends?</h2>
+
+<h4>Create a new factor variable</h4>
+
+<p>Create a new factor variable in the dataset with two levels -- &quot;weekday&quot; and &quot;weekend&quot; indicating whether a given date is a weekday or weekend day.</p>
+
+<pre><code class="r"># Create vector with weekdays
+weekdays_c &lt;- c(&#39;Monday&#39;, &#39;Tuesday&#39;, &#39;Wednesday&#39;, &#39;Thursday&#39;, &#39;Friday&#39;)
+
+#Create dataset with factor for weekdays and weekend
+activity_fill_na$day_type &lt;- factor((weekdays(activity_fill_na$date) %in% weekdays_c), 
+         levels=c(FALSE, TRUE), labels=c(&#39;Weekend&#39;, &#39;Weekday&#39;))
+
+# Avg number of steps grouped by day_type and interval
+# create count_steps and avg_steps variables 
+# include NA imputing values
+activity_day_type &lt;- activity_fill_na %&gt;%
+    group_by(day_type,interval) %&gt;%
+    summarize(count_steps = sum(steps,na.rm=TRUE),
+              avg_steps = mean(steps,na.rm=TRUE)
+    )
+</code></pre>
+
+<h4>Make a panel plot containing a time series plot</h4>
+
+<p>Make a panel plot containing a time series plot of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis). </p>
 
 <p>The summary of mean and median by group (weekends and weekdays) is as follow:</p>
 
@@ -451,7 +501,7 @@ g + geom_line() + ggtitle(&quot;Figure 5: Average number of steps taken per 5-mi
                linetype=&quot;dashed&quot;, size=1/3, colour=&quot;red&quot;) + theme_classic()
 </code></pre>
 
-<p><img src="figure/unnamed-chunk-17-1.png" alt="plot of chunk unnamed-chunk-17"></p>
+<p><img src="figure/unnamed-chunk-19-1.png" alt="plot of chunk unnamed-chunk-19"></p>
 
 </body>
 

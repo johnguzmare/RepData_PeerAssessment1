@@ -13,7 +13,7 @@ keep_md: yes
 ## Loading and preprocessing the data
 
 
-### Library dependencies
+#### Library dependencies
 
 ```r
 library(lubridate)
@@ -23,7 +23,7 @@ library(dplyr)
 ```
 
 
-### Load raw data
+#### Load raw data
 
 Load raw data from `activity.csv`
 
@@ -44,7 +44,7 @@ head(activityRawSet)
 ## 6    NA 2012-10-01       25
 ```
 
-### Prepare data
+#### Prepare data
 
 Create a data frame from `activityRawSet` and mutate date column as date object
 
@@ -95,6 +95,9 @@ activity_steps_taken
 
 The mean and median of total steps taken per day were calculated, using `mean()` and `median()` functions with `activity_steps_taken$count_steps` as parameter including observations with `NA` values.
 
+#### Calculate and report the mean and median total number of steps taken per day
+
+
 
 ```r
 activity_mean <- mean(activity_steps_taken$count_steps)
@@ -102,6 +105,8 @@ activity_median <- median(activity_steps_taken$count_steps)
 ```
 
 The mean total number of steps taken per day is:  **`9354.23`** and the median total number of steps taken per day is: **`10395`**.
+
+#### Make a histogram of the total number of steps taken each day
 
 *Figure 1*, shows the histogram of the total number of steps taken each day including its total mean and median values represented by red and blue doted lines respectively.
 
@@ -155,6 +160,8 @@ Portion of `activity_time` dataset
 ## # ... with 278 more rows
 ```
 
+#### Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
+
 The summary of `activity_time$avg_steps` shows on average the maximum number of steps in the column (`Max.`) 
 
 
@@ -181,6 +188,8 @@ max_interval
 ```
 
 Across all the days in the dataset, the 5-minute interval of **`835`** minutes , with a total of **`10927`** steps, on average contains a maximum of **`206.17`** steps.
+
+#### Make a time series plot of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)
 
 *Figure 2*, shows the time series plot of the average number of steps taken, including the 5-minute interval that on average, contains the maximum number of steps (Doted red vertical line).
 
@@ -210,7 +219,11 @@ Across all the days in the dataset, the 5-minute interval of **`835`** minutes ,
 
 ## Imputing missing values
 
-Note that there are a number of days/intervals where there are missing values (coded as 𝙽𝙰). The presence of missing days may introduce bias into some calculations or summaries of the data. The total number of observations containing missing values are calculated as follow.
+Note that there are a number of days/intervals where there are missing values (coded as 𝙽𝙰). The presence of missing days may introduce bias into some calculations or summaries of the data. 
+
+#### Calculate and report the total number of missing values in the dataset 
+
+The total number of observations containing missing values are calculated as follow.
 
 
 ```r
@@ -219,7 +232,13 @@ activity_count_na_values <- sum(is.na(activityRawSet$steps))
 
 The total number of observations containing missing values in steps variable is **`2304`** 
 
+#### Devise a strategy for filling in all of the missing values in the dataset. 
+
+
 The strategy for filling in all of the missing values in the dataset is replacing NA values with the mean of 5-minute time interval and create a new dataset `activity_fill_na` that is equal to the original dataset `activitySet_df` but with the missing data filled in.
+
+
+#### Create a new dataset that is equal to the original dataset but with the missing data filled in
 
 
 ```r
@@ -261,6 +280,11 @@ Portion of `activity_fill_na` dataset after imputing NA values
 ## # ... with 17,558 more rows
 ```
 
+#### Make a histogram of the total number of steps taken each day and Calculate and report the mean and median total number of steps taken per day. 
+
+
+
+
 Summary to compare `activity_steps_taken_im` dataset with imputed missing values and the original dataset `activity_steps_taken` 
 
 
@@ -274,10 +298,17 @@ Summary to compare `activity_steps_taken_im` dataset with imputed missing values
 ##      41    9819   10770   10770   12810   21190
 ```
 
+Calculate mean and median for imputing dataset
 
 
+```r
+# Calcualte mean and median for imputing dataset
+activity_mean_imp <- mean(activity_steps_taken_im$count_steps)
+activity_median_imp <- median(activity_steps_taken_im$count_steps)
+```
 
-*Figure 3*, Shows Histogram of the total number of steps taken each day after missing values are imputed including its total mean and median values represented by red and blue doted lines respectively. In this case after imputed **`2304`** missing values generates a slight increase in the values of the average and the median (compares original dataset with NA values) which causes both values, the mean and the median to be equals **`10776.19`**.
+
+*Figure 3*, Shows Histogram of the total number of steps taken each day after missing values are imputed including its total mean and median values represented by red and blue doted lines respectively. In this case after imputed **`2304`** missing values generates a slight increase in the values of the average and the median (compares original dataset with NA values) which causes both values, the **mean** and **median** to be equals to **`10776.19`**.
 
 
 ```r
@@ -290,7 +321,7 @@ text(activity_mean_imp-0.3e3, 8, bquote(bar(x) == .(activity_mean_imp)), col = "
 text(activity_median_imp+0.5e3, 8,  bquote(mu == .(activity_median_imp)), col = "blue", srt = 90,cex=0.6)
 ```
 
-![plot of chunk unnamed-chunk-13](figure/unnamed-chunk-13-1.png)
+![plot of chunk unnamed-chunk-14](figure/unnamed-chunk-14-1.png)
 
 
 *Figure 4*, Shows two histograms to compare the total number of steps taken each day, the first one shows the distribution before imputing and the second one shows the distribution after imputing missing values.
@@ -320,10 +351,36 @@ text(activity_median_imp+0.4e3, 8,  bquote(mu == .(activity_median_imp)), col = 
 title("Figure 4: Histograms of Total Number of Steps in each Day ", outer=TRUE)
 ```
 
-![plot of chunk unnamed-chunk-14](figure/unnamed-chunk-14-1.png)
+![plot of chunk unnamed-chunk-15](figure/unnamed-chunk-15-1.png)
 
 ## Are there differences in activity patterns between weekdays and weekends?
 
+#### Create a new factor variable
+
+Create a new factor variable in the dataset with two levels -- "weekday" and "weekend" indicating whether a given date is a weekday or weekend day.
+
+
+```r
+# Create vector with weekdays
+weekdays_c <- c('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday')
+
+#Create dataset with factor for weekdays and weekend
+activity_fill_na$day_type <- factor((weekdays(activity_fill_na$date) %in% weekdays_c), 
+         levels=c(FALSE, TRUE), labels=c('Weekend', 'Weekday'))
+         
+# Avg number of steps grouped by day_type and interval
+# create count_steps and avg_steps variables 
+# include NA imputing values
+activity_day_type <- activity_fill_na %>%
+    group_by(day_type,interval) %>%
+    summarize(count_steps = sum(steps,na.rm=TRUE),
+              avg_steps = mean(steps,na.rm=TRUE)
+    )
+```
+
+#### Make a panel plot containing a time series plot
+
+Make a panel plot containing a time series plot of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis). 
 
 
 
@@ -358,5 +415,5 @@ g + geom_line() + ggtitle("Figure 5: Average number of steps taken per 5-minute 
                linetype="dashed", size=1/3, colour="red") + theme_classic()
 ```
 
-![plot of chunk unnamed-chunk-17](figure/unnamed-chunk-17-1.png)
+![plot of chunk unnamed-chunk-19](figure/unnamed-chunk-19-1.png)
 
