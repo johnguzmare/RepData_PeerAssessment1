@@ -166,7 +166,7 @@ Across all the days in the dataset, the 5-minute interval of **``r max_interval$
     # Add label to doted lines
     geom_text(aes(x=550, label=paste(" Max. Steps =", round(max_interval$avg_steps, digits=2),  sep=" "), y=max_interval$avg_steps-0.1e2), colour="red", size=3) + 
     
-    geom_text(aes(x=max_interval$interval+0.3e2, label=paste(" 5 min Interval =", round(max_interval$interval, digits=2),  sep=" "), y=100), colour="red", angle=90, size=3) + theme_classic()
+    geom_text(aes(x=max_interval$interval+0.3e2, label=paste(" 5 min Interval =", round(max_interval$interval, digits=2),  sep=" "), y=100), colour="red", angle=90, size=3.5) + theme_classic()
     
 ```
 
@@ -272,7 +272,7 @@ abline(v = activity_median_imp, col = "blue", lwd = 1, lty = 2)
 text(activity_mean_imp-0.3e3, 8, bquote(bar(x) == .(activity_mean_imp)), col = "red", srt = 90,cex=0.6)
 text(activity_median_imp+0.4e3, 8,  bquote(mu == .(activity_median_imp)), col = "blue", srt = 90,cex=0.6)
 
-title("Figure 4: Histogram of Total Number of Steps in each Day ", outer=TRUE)
+title("Figure 4: Histograms of Total Number of Steps in each Day ", outer=TRUE)
 
 ```
 

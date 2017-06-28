@@ -325,7 +325,7 @@ max_interval
     # Add label to doted lines
     geom_text(aes(x=550, label=paste(&quot; Max. Steps =&quot;, round(max_interval$avg_steps, digits=2),  sep=&quot; &quot;), y=max_interval$avg_steps-0.1e2), colour=&quot;red&quot;, size=3) + 
 
-    geom_text(aes(x=max_interval$interval+0.3e2, label=paste(&quot; 5 min Interval =&quot;, round(max_interval$interval, digits=2),  sep=&quot; &quot;), y=100), colour=&quot;red&quot;, angle=90, size=3) + theme_classic()
+    geom_text(aes(x=max_interval$interval+0.3e2, label=paste(&quot; 5 min Interval =&quot;, round(max_interval$interval, digits=2),  sep=&quot; &quot;), y=100), colour=&quot;red&quot;, angle=90, size=3.5) + theme_classic()
 </code></pre>
 
 <p><img src="figure/g2-1.png" alt="plot of chunk g2"></p>
@@ -419,7 +419,7 @@ abline(v = activity_median_imp, col = &quot;blue&quot;, lwd = 1, lty = 2)
 text(activity_mean_imp-0.3e3, 8, bquote(bar(x) == .(activity_mean_imp)), col = &quot;red&quot;, srt = 90,cex=0.6)
 text(activity_median_imp+0.4e3, 8,  bquote(mu == .(activity_median_imp)), col = &quot;blue&quot;, srt = 90,cex=0.6)
 
-title(&quot;Figure 4: Histogram of Total Number of Steps in each Day &quot;, outer=TRUE)
+title(&quot;Figure 4: Histograms of Total Number of Steps in each Day &quot;, outer=TRUE)
 </code></pre>
 
 <p><img src="figure/unnamed-chunk-14-1.png" alt="plot of chunk unnamed-chunk-14"></p>
