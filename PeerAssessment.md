@@ -408,14 +408,6 @@ Activity during weekdays starts much earlier than on weekends. On weekdays the a
 
 
 ```r
-class(summary_mean$activity_mean)
-```
-
-```
-## [1] "numeric"
-```
-
-```r
 # Generates plot comapring Wdays and Wends
 g <- ggplot(activity_day_type, aes(interval, avg_steps, fill = day_type)) + facet_grid(day_type ~ .)
 g + geom_line() + ggtitle("Figure 5: Average number of steps taken per 5-minute \n interval across weekdays and weekends") + ylab("Average Steps Taken [Steps]")  + xlab("5-minute Time Interval [Minutes]") + 
