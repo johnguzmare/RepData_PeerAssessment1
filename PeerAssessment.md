@@ -195,8 +195,8 @@ Across all the days in the dataset, the 5-minute interval of **`835`** minutes ,
 
 
 ```r
-    g2 <- ggplot(activity_time, aes(interval, avg_steps))
-    g2 + geom_line() + ggtitle("Figure 2. Time series plot of the average number of steps taken") + 
+g2 <- ggplot(activity_time, aes(interval, avg_steps))
+g2 + geom_line() + ggtitle("Figure 2. Time series plot of the average number of steps taken") + 
     
     # Label axis
     xlab("5  Interval (minutes)") +  ylab("Avg. Activity (steps)") + 
@@ -366,8 +366,8 @@ weekdays_c <- c('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday')
 
 #Create dataset with factor for weekdays and weekend
 activity_fill_na$day_type <- factor((weekdays(activity_fill_na$date) %in% weekdays_c), 
-         levels=c(FALSE, TRUE), labels=c('Weekend', 'Weekday'))
-         
+                                    levels=c(FALSE, TRUE), labels=c('Weekend', 'Weekday'))
+
 # Avg number of steps grouped by day_type and interval
 # create count_steps and avg_steps variables 
 # include NA imputing values
@@ -408,11 +408,20 @@ Activity during weekdays starts much earlier than on weekends. On weekdays the a
 
 
 ```r
+class(summary_mean$activity_mean)
+```
+
+```
+## [1] "numeric"
+```
+
+```r
 # Generates plot comapring Wdays and Wends
 g <- ggplot(activity_day_type, aes(interval, avg_steps, fill = day_type)) + facet_grid(day_type ~ .)
 g + geom_line() + ggtitle("Figure 5: Average number of steps taken per 5-minute \n interval across weekdays and weekends") + ylab("Average Steps Taken [Steps]")  + xlab("5-minute Time Interval [Minutes]") + 
     geom_hline(data=summary_mean, aes(yintercept=activity_mean),
-               linetype="dashed", size=1/3, colour="red") + theme_classic()
+               linetype="dashed", size=1/3, colour="red") + 
+    geom_text(data=summary_mean, aes(label=round(activity_mean,digits = 2), x=0.25e3, y=55), colour="red", cex=3) + theme_classic()
 ```
 
 ![plot of chunk unnamed-chunk-19](figure/unnamed-chunk-19-1.png)
